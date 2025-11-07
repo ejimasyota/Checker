@@ -194,6 +194,20 @@ function SaveUserInfoButton() {
  * ユーザー情報削除処理
  */
 function ClearUserInfoButton() {
+  /* ------------------------------
+   *  1. バリデーションチェック
+   * ------------------------------*/
+  /* 1.ユーザー情報が存在しない状態で削除処理を実行した場合 */
+  if (!JSON.parse(localStorage.getItem("UserInfo"))) {
+    // 1.ダイアログ表示
+    Dialog.ShowDialog("ユーザー情報が存在しません。");
+    // 2.処理終了
+    return;
+  }
+
+  /* ------------------------------
+   *  2. 削除処理
+   * ------------------------------*/
   Dialog.ShowConfirmDialog("ユーザー情報を削除しますか？").then((result) => {
     /* [はい]が押下された場合は画面を戻る */
     if (result) {
