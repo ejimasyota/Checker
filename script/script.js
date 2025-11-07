@@ -622,13 +622,31 @@ function RenderDrinkUI(DefaultDrinkList) {
     BtnBox.style.justifyContent = "flex-end";
     BtnBox.style.gap = "4px";
 
+    /* デフォルトカード以外には削除ボタンを配置 */
     if (!drink.default) {
-      const DelBtn = document.createElement("button");
-      DelBtn.className = "Button";
-      DelBtn.dataset.action = "remove";
-      DelBtn.dataset.i = index;
-      DelBtn.textContent = "削除";
-      BtnBox.appendChild(DelBtn);
+      // 1.ボタン要素作成
+      const DeleteCardButton = document.createElement("button");
+      // 2.クラス設定
+      DeleteCardButton.className = "Button";
+      // 3.インデックス設定
+      DeleteCardButton.dataset.i = index;
+      // 4.ラベル設定
+      DeleteCardButton.textContent = "削除";
+      // 5.コンテナに格納
+      BtnBox.appendChild(DeleteCardButton);
+
+      /* 削除ボタンクリック時イベント */
+      DeleteCardButton.addEventListener("click", function () {
+        Dialog.ShowConfirmDialog("カードを削除しますか？").then((result) => {
+          /* [はい]が押下された場合は削除処理実行 */
+          if (result) {
+            // 1.インデックスの要素を切り取る
+            CreateDrink.splice(index, 1);
+            // 2.カードを再表示
+            RenderDrinkUI(CreateDrink);
+          }
+        });
+      });
     }
 
     Row4.appendChild(BtnBox);
@@ -645,19 +663,8 @@ function RenderDrinkUI(DefaultDrinkList) {
     inp.addEventListener("change", onDrinkInputChange);
     inp.addEventListener("input", onDrinkInputChange);
   });
-  DrinkContainer.querySelectorAll("button").forEach((b) =>
-    b.addEventListener("click", onDrinkBtn)
-  );
 }
 
-function onDrinkBtn(e) {
-  const i = parseInt(e.currentTarget.dataset.i, 10);
-  const act = e.currentTarget.dataset.action;
-  if (act === "remove") {
-    CreateDrink.splice(i, 1);
-    RenderDrinkUI(CreateDrink);
-  }
-}
 function onDrinkInputChange(e) {
   const i = parseInt(e.target.dataset.i, 10);
   const f = e.target.dataset.field;
