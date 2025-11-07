@@ -836,7 +836,6 @@ function JudgeEvent() {
     const count = Number(d.count);
     const vol = Number(d.vol);
     const abv = Number(d.abv);
-    console.log("abv", abv);
     totalAlcoholG += count * vol * (abv / 100) * alcoholDensity;
   });
 
