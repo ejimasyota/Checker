@@ -622,16 +622,9 @@ function RenderDrinkUI(DefaultDrinkList) {
     BtnBox.style.justifyContent = "flex-end";
     BtnBox.style.gap = "4px";
 
-    const DupBtn = document.createElement("button");
-    DupBtn.className = "smallBtn";
-    DupBtn.dataset.action = "dup";
-    DupBtn.dataset.i = index;
-    DupBtn.textContent = "複製";
-    BtnBox.appendChild(DupBtn);
-
     if (!drink.default) {
       const DelBtn = document.createElement("button");
-      DelBtn.className = "smallBtn";
+      DelBtn.className = "Button";
       DelBtn.dataset.action = "remove";
       DelBtn.dataset.i = index;
       DelBtn.textContent = "削除";
@@ -655,12 +648,6 @@ function RenderDrinkUI(DefaultDrinkList) {
   DrinkContainer.querySelectorAll("button").forEach((b) =>
     b.addEventListener("click", onDrinkBtn)
   );
-  document.querySelectorAll(".smallBtn").forEach((b) => {
-    b.style.border = "none";
-    b.style.background = "transparent";
-    b.style.color = "var(--accent)";
-    b.style.cursor = "pointer";
-  });
 }
 
 function onDrinkBtn(e) {
@@ -668,10 +655,6 @@ function onDrinkBtn(e) {
   const act = e.currentTarget.dataset.action;
   if (act === "remove") {
     CreateDrink.splice(i, 1);
-    RenderDrinkUI(CreateDrink);
-  }
-  if (act === "dup") {
-    CreateDrink.splice(i + 1, 0, JSON.parse(JSON.stringify(CreateDrink[i])));
     RenderDrinkUI(CreateDrink);
   }
 }
