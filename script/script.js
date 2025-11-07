@@ -67,6 +67,22 @@ const DefaultDrinks = [
     default: true,
   },
   {
+    type: "チューハイ(缶)",
+    abv: 7,
+    count: 1,
+    vol: 500,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "ハイボール(缶)",
+    abv: 9,
+    count: 1,
+    vol: 500,
+    checked: false,
+    default: true,
+  },
+  {
     type: "焼酎(グラス)",
     abv: 25,
     count: 1,
@@ -83,90 +99,10 @@ const DefaultDrinks = [
     default: true,
   },
   {
-    type: "ハイボール(缶)",
-    abv: 9,
-    count: 1,
-    vol: 500,
-    checked: false,
-    default: true,
-  },
-  {
     type: "日本酒(一合)",
     abv: 15,
     count: 1,
     vol: 180,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "チューハイ(缶)",
-    abv: 7,
-    count: 1,
-    vol: 500,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "カクテル(グラス)",
-    abv: 10,
-    count: 1,
-    vol: 120,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "ウイスキー(シングル)",
-    abv: 40,
-    count: 1,
-    vol: 30,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "梅酒(ロック)",
-    abv: 14,
-    count: 1,
-    vol: 90,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "焼酎(ロック)",
-    abv: 25,
-    count: 1,
-    vol: 70,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "日本酒(冷酒・グラス)",
-    abv: 15,
-    count: 1,
-    vol: 120,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "ワイン(ボトル)",
-    abv: 12,
-    count: 1,
-    vol: 750,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "テキーラ(ショット)",
-    abv: 40,
-    count: 1,
-    vol: 30,
-    checked: false,
-    default: true,
-  },
-  {
-    type: "ジン(トニック)",
-    abv: 12,
-    count: 1,
-    vol: 200,
     checked: false,
     default: true,
   },
@@ -836,7 +772,6 @@ function JudgeEvent() {
     const count = Number(d.count);
     const vol = Number(d.vol);
     const abv = Number(d.abv);
-    console.log("abv", abv);
     totalAlcoholG += count * vol * (abv / 100) * alcoholDensity;
   });
 
