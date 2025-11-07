@@ -359,7 +359,9 @@ function RenderDrinkUI(DefaultDrinkList) {
     const DrinkType = document.createElement("h3");
     // 2.表示設定
     DrinkType.textContent = `${escapeHtml(drink.type || "自由入力")}`;
-    // 3.1行目に格納
+    // 3.ID設定
+    DrinkType.id = `DrinkTypeElement_${index}`;
+    // 4.1行目に格納
     Row1.appendChild(DrinkType);
 
     /* チェックボックス作成 */
@@ -417,6 +419,8 @@ function RenderDrinkUI(DefaultDrinkList) {
     TypeInput.style.borderRadius = "4px";
     // 12.線色設定
     TypeInput.style.border = "1px solid rgba(255,255,255,0.2)";
+    // 13.活性・非活性を制御
+    TypeInput.disabled = DrinkType.textContent !== "自由入力";
     // 13.ラベルに格納
     TypeLabel.appendChild(TypeInput);
     // 14.2行目に格納
@@ -579,6 +583,27 @@ function RenderDrinkUI(DefaultDrinkList) {
     VolLabel.appendChild(VolInput);
     // 20.4行目に格納
     Row4.appendChild(VolLabel);
+
+    /* 種類入力欄ロストフォーカス時 */
+    TypeInput.addEventListener("blur", function () {
+      // 1.値が存在しない場合は処理を行わない
+      if (!this.value) {
+        return;
+      }
+
+      // 2.種類の表示要素取得
+      const DrinkTypeElement = document.getElementById(
+        `DrinkTypeElement_${index}`
+      );
+
+      // 3.表示要素の値が[自由入力]であった場合
+      if (DrinkTypeElement.textContent === "自由入力") {
+        // 3.入力欄の値を設定
+        DrinkTypeElement.textContent = this.value;
+        // 4.入力欄を非活性へ
+        TypeInput.disabled = true;
+      }
+    });
 
     AbvInput.addEventListener("blur", function () {
       CheckNumber(this.id, index);
@@ -1019,6 +1044,16 @@ function RenderHistory() {
  * エクスポートボタン押下時処理
  */
 function ExportButton() {
+  /* ------------------------------
+   *  1. バリデーションチェック
+   * ------------------------------*/
+  /* 1.履歴情報が存在しない状態で処理を実行した場合 */
+  if (!JSON.parse(localStorage.getItem("HistoryInfoStrage"))) {
+    // 1.ダイアログ表示
+    Dialog.ShowDialog("履歴が存在しません。");
+    // 2.処理終了
+    return;
+  }
   const js = localStorage.getItem("HistoryInfoStrage") || "[]";
   const blob = new Blob([js], { type: "application/csv" });
   const url = URL.createObjectURL(blob);
@@ -1031,7 +1066,26 @@ function ExportButton() {
   URL.revokeObjectURL(url);
   Dialog.ShowDialog("保存が完了しました。");
 }
+
+/**
+ * 履歴クリアボタン押下時イベント
+ * @returns
+ */
 function ClearHistoryButton() {
+  /* ------------------------------
+   *  1. バリデーションチェック
+   * ------------------------------*/
+  /* 1.履歴情報が存在しない状態で処理を実行した場合 */
+  if (!JSON.parse(localStorage.getItem("HistoryInfoStrage"))) {
+    // 1.ダイアログ表示
+    Dialog.ShowDialog("履歴が存在しません。");
+    // 2.処理終了
+    return;
+  }
+
+  /* ------------------------------
+   *  2. 履歴のクリア処理
+   * ------------------------------*/
   // 1.ダイアログを表示
   Dialog.ShowConfirmDialog("履歴を全て削除しますか？").then((result) => {
     /* [はい]が押下された場合は画面を戻る */
