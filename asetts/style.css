@@ -98,6 +98,9 @@ select {
   background: transparent;
   color: inherit;
 }
+option {
+  color: black;
+}
 
 .small {
   font-size: 13px;

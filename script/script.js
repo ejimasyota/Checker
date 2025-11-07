@@ -672,7 +672,8 @@ function onDrinkInputChange(e) {
     CreateDrink[i].checked = e.target.checked;
   } else if (f) {
     if (f === "abv") {
-      CreateDrink[i].abv = parseFloat(e.target.value || 0);
+      const AvbValue = e.target.value >= 100 ? 100 : e.target.value;
+      CreateDrink[i].abv = parseFloat(AvbValue || 0);
     } else if (f === "count") {
       CreateDrink[i].count = parseInt(e.target.value || 0, 10);
     } else if (f === "type") {
@@ -756,6 +757,7 @@ function JudgeEvent() {
     const count = Number(d.count);
     const vol = Number(d.vol);
     const abv = Number(d.abv);
+    console.log("abv", abv);
     totalAlcoholG += count * vol * (abv / 100) * alcoholDensity;
   });
 
@@ -1151,7 +1153,7 @@ function RankBac(bac) {
       nextThreshold: 0.2,
     };
   return {
-    rank: "Z",
+    rank: "💀",
     message: "死にます。ブラウザを閉じて遺族となる方々に連絡してください。",
     nextThreshold: null,
   };
