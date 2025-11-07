@@ -125,7 +125,7 @@ document.getElementById("ExportButton").addEventListener("click", ExportButton);
 document
   .getElementById("ClearHistoryButton")
   .addEventListener("click", ClearHistoryButton);
-// 5.[種類追加]ボタン押下時イベント
+// 5.[カード追加]ボタン押下時イベント
 document
   .getElementById("AddDrinkButton")
   .addEventListener("click", () => AddDrinkButton());
@@ -369,7 +369,7 @@ function RenderDrinkUI(DefaultDrinkList) {
     // 6.間隔設定
     Row1.style.gap = "8px";
 
-    /* 飲み物の種類設定 */
+    /* 飲み物の品名設定 */
     // 1.h3要素作成
     const DrinkType = document.createElement("h3");
     // 2.表示設定
@@ -409,11 +409,11 @@ function RenderDrinkUI(DefaultDrinkList) {
     // 5.間隔を設定
     Row2.style.gap = "4px";
 
-    /* 種類を作成 */
+    /* 品名を作成 */
     // 1.ラベル作成
     const TypeLabel = document.createElement("label");
     // 2.ラベル設定
-    TypeLabel.textContent = "種類";
+    TypeLabel.textContent = "品名";
     // 3.入力フォーム作成
     const TypeInput = document.createElement("input");
     // 4.タイプ設定
@@ -599,14 +599,14 @@ function RenderDrinkUI(DefaultDrinkList) {
     // 20.4行目に格納
     Row4.appendChild(VolLabel);
 
-    /* 種類入力欄ロストフォーカス時 */
+    /* 品名入力欄ロストフォーカス時 */
     TypeInput.addEventListener("blur", function () {
       // 1.値が存在しない場合は処理を行わない
       if (!this.value) {
         return;
       }
 
-      // 2.種類の表示要素取得
+      // 2.品名の表示要素取得
       const DrinkTypeElement = document.getElementById(
         `DrinkTypeElement_${index}`
       );
@@ -744,7 +744,7 @@ function JudgeEvent() {
   }
   for (const d of chosen) {
     if (!d.type || d.type.trim() === "") {
-      Dialog.ShowDialog("自由入力の項目がある場合は種類名を入力してください。");
+      Dialog.ShowDialog("自由入力の項目がある場合は品名を入力してください。");
       return;
     }
     if (!d.abv || d.abv <= 0) {
