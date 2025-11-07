@@ -194,6 +194,20 @@ function SaveUserInfoButton() {
  * ユーザー情報削除処理
  */
 function ClearUserInfoButton() {
+  /* ------------------------------
+   *  1. バリデーションチェック
+   * ------------------------------*/
+  /* 1.ユーザー情報が存在しない状態で削除処理を実行した場合 */
+  if (!JSON.parse(localStorage.getItem("UserInfo"))) {
+    // 1.ダイアログ表示
+    Dialog.ShowDialog("ユーザー情報が存在しません。");
+    // 2.処理終了
+    return;
+  }
+
+  /* ------------------------------
+   *  2. 削除処理
+   * ------------------------------*/
   Dialog.ShowConfirmDialog("ユーザー情報を削除しますか？").then((result) => {
     /* [はい]が押下された場合は画面を戻る */
     if (result) {
@@ -312,214 +326,303 @@ function RenderDrinkUI(DefaultDrinkList) {
    *  2. 画面構築処理
    * ------------------------------*/
   CreateDrink.forEach((drink, index) => {
-    /* コンテナを作成 */
-    // 1.DIV要素を作成
+    /* 1.コンテナを作成 */
+    // 1.DIV要素作成
     const DivElement = document.createElement("div");
-    // 2.クラスを設定
+    // 2.クラス設定
     DivElement.className = "DrinkInfo";
+    // 3.余白設定
+    DivElement.style.padding = "8px";
+    // 4.線色設定
+    DivElement.style.border = "1px solid rgba(255,255,255,0.1)";
+    // 5.角丸設定
+    DivElement.style.borderRadius = "8px";
+    // 6.下間隔設定
+    DivElement.style.marginBottom = "10px";
 
-    /* ドリンクカード上段（品名＋チェックボックス）を作成 */
-    // 1.DIV要素を作成
+    /* 1行目作成 */
+    // 1.DIV要素作成
     const Row1 = document.createElement("div");
-    // 2.クラスを設定
+    // 2.Class設定
     Row1.classList.add("row", "space");
+    // 3.横並びに設定
+    Row1.style.display = "flex";
+    // 4.並び設定
+    Row1.style.justifyContent = "space-between";
+    // 5.表示位置設定
+    Row1.style.alignItems = "center";
+    // 6.間隔設定
+    Row1.style.gap = "8px";
 
-    /* 品名を作成 */
-    // 1.h3要素を作成
+    /* 飲み物の種類設定 */
+    // 1.h3要素作成
     const DrinkType = document.createElement("h3");
-    // 2.内容設定
+    // 2.表示設定
     DrinkType.textContent = `${escapeHtml(drink.type || "自由入力")}`;
-    // 3.上段に追加
+    // 3.1行目に格納
     Row1.appendChild(DrinkType);
 
-    /* チェックボックスラベルを作成 */
-    // 1.label要素を作成
+    /* チェックボックス作成 */
+    // 1.チェックボックスのラベル作成
     const CheckLabel = document.createElement("label");
-    // 2.input要素を作成
+    // 2.入力要素作成
     const CheckBoxElement = document.createElement("input");
-    // 3.タイプを設定
+    // 3.チェックボックスに設定
     CheckBoxElement.type = "checkbox";
-    // 4.data属性を設定
+    // 4.インデックスを設定(値取得用)
     CheckBoxElement.dataset.i = index;
-    // 5.チェック状態を設定
+    // 5.チェック設定のカードにはチェックを設定
     if (drink.checked) {
       CheckBoxElement.checked = true;
     }
-    // 6.ラベルに追加
+    // 6.チェックボックスをラベルに格納
     CheckLabel.appendChild(CheckBoxElement);
-    // 7.上段に追加
+    // 7.2行目に格納
     Row1.appendChild(CheckLabel);
 
-    /* 種類を作成 */
-    // 1.DIV要素を作成
+    /* 2行目作成 */
+    // 1.DIV要素作成
     const Row2 = document.createElement("div");
-    // 2.スタイル設定
+    // 2.上との間隔を設定
     Row2.style.marginTop = "6px";
-    // 3.label要素を作成
+    // 3.横並びに設定
+    Row2.style.display = "flex";
+    // 4.列を設定
+    Row2.style.flexDirection = "column";
+    // 5.間隔を設定
+    Row2.style.gap = "4px";
+
+    /* 種類を作成 */
+    // 1.ラベル作成
     const TypeLabel = document.createElement("label");
-    // 4.ラベル内容を設定
+    // 2.ラベル設定
     TypeLabel.textContent = "種類";
-    // 5.input要素を作成
+    // 3.入力フォーム作成
     const TypeInput = document.createElement("input");
-    // 6.タイプを設定
+    // 4.タイプ設定
     TypeInput.type = "text";
-    // 7.値を設定
+    // 5.値設定
     TypeInput.value = escapeHtml(drink.type || "");
-    // 8.data属性を設定
+    // 6.識別用IDを設定
     TypeInput.dataset.field = "type";
-    // 9.インデックスを設定
+    // 7.インデックス設定
     TypeInput.dataset.i = index;
+    // 8.幅設定
     TypeInput.style.width = "100%";
-    // 10.labelに追加
+    // 9.サイズ設定
+    TypeInput.style.boxSizing = "border-box";
+    // 10.余白設定
+    TypeInput.style.padding = "4px";
+    // 11.角丸設定
+    TypeInput.style.borderRadius = "4px";
+    // 12.線色設定
+    TypeInput.style.border = "1px solid rgba(255,255,255,0.2)";
+    // 13.ラベルに格納
     TypeLabel.appendChild(TypeInput);
-    // 11.Row2に追加
+    // 14.2行目に格納
     Row2.appendChild(TypeLabel);
 
-    /* 度数・本数入力行を作成 */
-    // 1.DIV要素を作成
+    /* 3行目作成 */
+    // 1.DIV要素作成
     const Row3 = document.createElement("div");
-    // 2.クラスを設定
+    // 2.Class設定
     Row3.classList.add("row");
-    // 3.スタイル設定
+    // 3.上との間隔設定
     Row3.style.marginTop = "6px";
+    // 4.横並びに設定
+    Row3.style.display = "flex";
+    // 5.間隔設定
+    Row3.style.gap = "10px";
+    // 6.折り返し表示設定
+    Row3.style.flexWrap = "wrap";
+    // 7.表示位置設定
+    Row3.style.alignItems = "center";
 
-    /* 度数(%)入力 */
-    // 1.label要素を作成
+    /* アルコール度数作成 */
+    // 1.ラベル作成
     const AbvLabel = document.createElement("label");
-    // 2.スタイル設定
+    // 2.空きを１つ使用
     AbvLabel.style.flex = "1";
-    // 3.ラベル内容を設定
+    // 3.横並びに設定
+    AbvLabel.style.display = "flex";
+    // 4.列設定
+    AbvLabel.style.flexDirection = "column";
+    // 5.ラベル設定
     AbvLabel.textContent = "度数(%)";
-    // 4.input要素を作成
+    // 6.入力フォーム作成
     const AbvInput = document.createElement("input");
-    // 5.タイプ設定
-    AbvInput.type = "number";
-    // 6.最小値を設定
-    AbvInput.min = "0";
-    // 7.最大値を設定
-    AbvInput.max = "96";
-    // 8.値を設定
+    // 7.タイプ設定
+    AbvInput.type = "text";
+    // 8.右寄せに設定
+    AbvInput.style.textAlign = "right";
+    // 9.入力桁数設定
+    AbvInput.maxLength = "3";
+    // 10.ID設定
+    AbvInput.id = `AbvLabelElement_${index}`;
+    // 11.値設定
     AbvInput.value = drink.abv || 0;
-    // 9.data属性を設定
+    // 12.識別ID設定
     AbvInput.dataset.field = "abv";
-    // 10.インデックスを設定
+    // 13.インデックス設定
     AbvInput.dataset.i = index;
-    // 11.labelに追加
+    // 14.幅設定
+    AbvInput.style.width = "100%";
+    // 15.サイズ設定
+    AbvInput.style.boxSizing = "border-box";
+    // 16.余白設定
+    AbvInput.style.padding = "4px";
+    // 17.角丸設定
+    AbvInput.style.borderRadius = "4px";
+    // 18.線色設定
+    AbvInput.style.border = "1px solid rgba(255,255,255,0.2)";
+    // 19.ラベル格納
     AbvLabel.appendChild(AbvInput);
-    // 12.Row3に追加
+    // 20.行3に格納
     Row3.appendChild(AbvLabel);
 
-    /* 本数入力 */
-    // 1.label要素を作成
+    /* 本数 */
+    // 1.ラベル作成
     const CountLabel = document.createElement("label");
-    // 2.スタイル設定
+    // 2.幅設定
     CountLabel.style.width = "86px";
-    // 3.ラベル内容を設定
+    // 3.横並び設定
+    CountLabel.style.display = "flex";
+    // 4.列設定
+    CountLabel.style.flexDirection = "column";
+    // 5.ラベル設定
     CountLabel.textContent = "本数";
-    // 4.input要素を作成
+    // 6.入力要素作成
     const CountInput = document.createElement("input");
-    // 5.タイプ設定
-    CountInput.type = "number";
-    // 6.最小値を設定
-    CountInput.min = "0";
-    // 7.値を設定
+    // 7.タイプ設定
+    CountInput.type = "text";
+    // 8.最大桁数設定
+    CountInput.maxLength = "5";
+    // 9.右寄せ設定
+    CountInput.style.textAlign = "right";
+    // 10.値設定
     CountInput.value = drink.count || 0;
-    // 8.data属性を設定
+    // 11.識別ID設定
     CountInput.dataset.field = "count";
-    // 9.インデックスを設定
+    // 12.インデックス設定
     CountInput.dataset.i = index;
-    // 10.labelに追加
+    // 13.幅設定
+    CountInput.style.width = "100%";
+    // 14.サイズ設定
+    CountInput.style.boxSizing = "border-box";
+    // 15.余白設定
+    CountInput.style.padding = "4px";
+    // 16.角丸設定
+    CountInput.style.borderRadius = "4px";
+    // 17.線色設定
+    CountInput.style.border = "1px solid rgba(255,255,255,0.2)";
+    // 18.ID設定
+    CountInput.id = `CountInputElement_${index}`;
+    // 19.ラベルに格納
     CountLabel.appendChild(CountInput);
-    // 11.Row3に追加
+    // 20.3行目に格納
     Row3.appendChild(CountLabel);
 
-    /* 容量・複製・削除行を作成 */
-    // 1.DIV要素を作成
+    /* ４行目作成 */
+    // 1.DIV要素作成
     const Row4 = document.createElement("div");
-    // 2.クラスを設定
+    // 2.クラス設定
     Row4.classList.add("row");
-    // 3.スタイル設定
+    // 3.上との間隔設定
     Row4.style.marginTop = "6px";
+    // 4.横並びに設定
+    Row4.style.display = "flex";
+    // 5.間隔を設定
+    Row4.style.gap = "10px";
+    // 6.折り返し設定
+    Row4.style.flexWrap = "wrap";
+    // 7.表示位置設定
+    Row4.style.alignItems = "center";
 
-    /* 容量(ml)入力 */
-    // 1.label要素を作成
+    /* 容量 */
+    // 1.ラベルを作成
     const VolLabel = document.createElement("label");
-    // 2.スタイル設定
+    // 2.空きを1つ使用
     VolLabel.style.flex = "1";
-    // 3.ラベル内容を設定
+    // 3.横並びに設定
+    VolLabel.style.display = "flex";
+    // 4.列設定
+    VolLabel.style.flexDirection = "column";
+    // 5.ラベル設定
     VolLabel.textContent = "容量(ml)";
-    // 4.input要素を作成
+    // 6.入力フォーム作成
     const VolInput = document.createElement("input");
-    // 5.タイプ設定
-    VolInput.type = "number";
-    // 6.最小値を設定
-    VolInput.min = "1";
-    // 7.値を設定
+    // 7.タイプ設定
+    VolInput.type = "text";
+    // 8.最大桁数設定
+    VolInput.maxLength = "4";
+    // 9.右寄せに設定
+    VolInput.style.textAlign = "right";
+    // 10.値を設定
     VolInput.value = drink.vol || 100;
-    // 8.data属性を設定
+    // 11.識別IDを設定
     VolInput.dataset.field = "vol";
-    // 9.インデックスを設定
+    // 12.インデックスを設定
     VolInput.dataset.i = index;
-    // 10.labelに追加
+    // 13.幅を設定
+    VolInput.style.width = "100%";
+    // 14.サイズを設定
+    VolInput.style.boxSizing = "border-box";
+    // 15.余白を設定
+    VolInput.style.padding = "4px";
+    // 16.角丸を設定
+    VolInput.style.borderRadius = "4px";
+    // 17.線色を設定
+    VolInput.style.border = "1px solid rgba(255,255,255,0.2)";
+    // 18.ID設定
+    VolInput.id = `VolInputElement_${index}`;
+    // 19.ラベルに格納
     VolLabel.appendChild(VolInput);
-    // 11.Row4に追加
+    // 20.4行目に格納
     Row4.appendChild(VolLabel);
 
-    /* 複製・削除ボタンコンテナ */
-    // 1.DIV要素を作成
+    AbvInput.addEventListener("blur", function () {
+      CheckNumber(this.id, index);
+    });
+    CountInput.addEventListener("blur", function () {
+      CheckNumber(this.id, index);
+    });
+    VolInput.addEventListener("blur", function () {
+      CheckNumber(this.id, index);
+    });
+
     const BtnBox = document.createElement("div");
-    // 2.スタイル設定
     BtnBox.style.width = "86px";
     BtnBox.style.textAlign = "right";
+    BtnBox.style.display = "flex";
+    BtnBox.style.justifyContent = "flex-end";
+    BtnBox.style.gap = "4px";
 
-    /* 複製ボタン */
-    // 1.button要素を作成
     const DupBtn = document.createElement("button");
-    // 2.クラスを設定
     DupBtn.className = "smallBtn";
-    // 3.data属性を設定
     DupBtn.dataset.action = "dup";
-    // 4.インデックスを設定
     DupBtn.dataset.i = index;
-    // 5.ボタン内容を設定
     DupBtn.textContent = "複製";
-    // 6.ボックスに追加
     BtnBox.appendChild(DupBtn);
 
-    /* デフォルト以外の場合のみ削除ボタンを追加 */
     if (!drink.default) {
-      // 1.button要素を作成
       const DelBtn = document.createElement("button");
-      // 2.クラスを設定
       DelBtn.className = "smallBtn";
-      // 3.data属性を設定
       DelBtn.dataset.action = "remove";
-      // 4.インデックスを設定
       DelBtn.dataset.i = index;
-      // 5.ボタン内容を設定
       DelBtn.textContent = "削除";
-      // 6.ボックスに追加
       BtnBox.appendChild(DelBtn);
     }
 
-    // 7.Row4に追加
     Row4.appendChild(BtnBox);
 
-    /* 要素をまとめてコンテナに追加 */
-    // 1.Row1を追加
     DivElement.appendChild(Row1);
-    // 2.Row2を追加
     DivElement.appendChild(Row2);
-    // 3.Row3を追加
     DivElement.appendChild(Row3);
-    // 4.Row4を追加
     DivElement.appendChild(Row4);
 
-    /* コンテナに格納 */
     DrinkContainer.appendChild(DivElement);
   });
 
-  // attach events
   DrinkContainer.querySelectorAll("input").forEach((inp) => {
     inp.addEventListener("change", onDrinkInputChange);
     inp.addEventListener("input", onDrinkInputChange);
@@ -527,7 +630,6 @@ function RenderDrinkUI(DefaultDrinkList) {
   DrinkContainer.querySelectorAll("button").forEach((b) =>
     b.addEventListener("click", onDrinkBtn)
   );
-  // small button styles
   document.querySelectorAll(".smallBtn").forEach((b) => {
     b.style.border = "none";
     b.style.background = "transparent";
@@ -661,18 +763,127 @@ function JudgeEvent() {
   };
   pushHistory(rec);
   RenderHistory();
-  displayResult(rec);
+  DisplayResult(rec);
 }
 
-function displayResult(rec) {
-  JudgeResult.innerHTML = `
-        <div class="CardContainer">
-          <div class="result-big">ランク: ${rec.rank}</div>
-          <div class="result-meta">推定BAC: ${rec.bac}%</div>
-          <div style="margin-top:8px">${rec.message}</div>
+/**
+ * 数値チェック関数
+ * @param ElementId 対象要素のID
+ * @param Index     処理カードのインデックス
+ */
+function CheckNumber(ElementId, Index = null) {
+  /* ------------------------------
+   *  1. 定義
+   * ------------------------------*/
+  // 1.対象要素取得
+  const Element = document.getElementById(ElementId);
 
-        </div>
-      `;
+  /* ------------------------------
+   *  2. バリデーションチェック
+   * ------------------------------*/
+  // 1.要素が存在しない場合は処理終了
+  if (!Element) {
+    return;
+  }
+
+  /* ------------------------------
+   *  3. 入力値を取得
+   * ------------------------------*/
+  let ElementValue = Element.value;
+
+  /* ------------------------------
+   *  4. 全角数字・ドット・マイナスを半角に変換
+   * ------------------------------*/
+  ElementValue = ElementValue.replace(/[０-９．－]/g, (s) =>
+    String.fromCharCode(s.charCodeAt(0) - 0xfee0)
+  );
+
+  /* ------------------------------
+   *  5. 数値変換を実施
+   * ------------------------------*/
+  const ParseNumber = parseFloat(ElementValue);
+
+  /* ------------------------------
+   *  6. 数値に変換できない場合
+   * ------------------------------*/
+  if (isNaN(ParseNumber)) {
+    // 1.空文字を要素に設定
+    Element.value = "";
+    // 2.処理終了
+    return;
+  }
+
+  /* ------------------------------
+   *  7. IDに紐づく要素がアルコール入力欄なら100上限を適用
+   * ------------------------------*/
+  if (ElementId === `AbvLabelElement_${Index}`) {
+    // 1.該当する場合は制限を実施
+    Element.value = ParseNumber >= 100 ? 100 : ParseNumber;
+  } else {
+    // 2.該当しない場合はそのまま変換後数値をセット
+    Element.value = ParseNumber;
+  }
+}
+
+/**
+ * 判定結果の表示処理
+ * @param rec
+ */
+function DisplayResult(rec) {
+  /* ------------------------------
+   *  1. 格納コンテナ初期化
+   * ------------------------------*/
+  JudgeResult.innerHTML = "";
+
+  /* ------------------------------
+   *  2. コンテナ要素の作成
+   * ------------------------------*/
+  // 1.DIV要素作成
+  const DivContainer = document.createElement("div");
+  // 2.Class設定
+  DivContainer.className = "CardContainer";
+
+  /* ------------------------------
+   *  3. ランクの表示要素作成
+   * ------------------------------*/
+  // 1.DIV要素作成
+  const DivRank = document.createElement("div");
+  // 2.Class設定
+  DivRank.className = "result-big";
+  // 3.値設定
+  DivRank.textContent = `ランク : ${rec.rank}`;
+
+  /* ------------------------------
+   *  4. 推定BACの表示要素作成
+   * ------------------------------*/
+  // 1.DIV要素作成
+  const DivBac = document.createElement("div");
+  // 2.Class設定
+  DivBac.className = "result-meta";
+  // 3.値設定
+  DivBac.textContent = `推定BAC : ${rec.bac}`;
+
+  /* ------------------------------
+   *  5. メッセージの表示要素作成
+   * ------------------------------*/
+  // 1.DIV要素作成
+  const DivMessage = document.createElement("div");
+  // 2.スタイル設定
+  DivMessage.style.marginTop = "8px";
+  // 3.値設定
+  DivMessage.textContent = rec.message;
+
+  /* ------------------------------
+   *  6. コンテナ格納
+   * ------------------------------*/
+  // 1.ランク格納
+  DivContainer.appendChild(DivRank);
+  // 2.推定BAC格納
+  DivContainer.appendChild(DivBac);
+  // 3.メッセージ格納
+  DivContainer.appendChild(DivMessage);
+  // 4.コンテナ格納
+  JudgeResult.appendChild(DivContainer);
 }
 
 function pushHistory(rec) {

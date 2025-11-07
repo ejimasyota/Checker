@@ -86,26 +86,27 @@
             <div>
               <label>年齢</label>
               <input
-                type="number"
+                type="text"
                 id="AgeElement"
-                min="1"
-                max="120"
-                style="width: 150px"
+                maxlength="3"
+                onblur="CheckNumber('AgeElement')"
+                style="width: 150px; text-align: right"
               />
               <label style="margin-top: 6px">体重（kg）</label>
               <input
-                type="number"
+                type="text"
                 id="WeightElement"
-                min="20"
-                max="300"
-                style="width: 150px"
+                maxlength="3"
+                onblur="CheckNumber('WeightElement')"
+                style="width: 150px; text-align: right"
               />
               <label style="margin-top: 6px">週の平均飲酒日数（日）</label>
               <input
-                type="number"
+                type="text"
                 id="WeeklyElement"
-                min="0"
-                style="width: 150px"
+                maxlength="1"
+                onblur="CheckNumber('WeeklyElement')"
+                style="width: 150px; text-align: right"
               />
             </div>
             <div>
@@ -143,7 +144,7 @@
         </div>
       </div>
 
-      <footer>Ver.1.0.0</footer>
+      <footer>Ver.1.4.0</footer>
     </div>
     <script src="script/public.js"></script>
     <script src="script/script.js"></script>
