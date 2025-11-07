@@ -581,8 +581,28 @@ function AddDrinkButton() {
   }, 50);
 }
 
-// 判定ロジック
+/**
+ * 血中アルコール濃度判定処理
+ * @returns
+ */
 function JudgeEvent() {
+  const userStrageInfo = UseUserInfoCheck.checked
+    ? JSON.parse(localStorage.getItem("UserInfo") || "null")
+    : null;
+
+  /* ユーザー情報が存在しない状態でユーザー情報を利用するにチェックがされている場合 */
+  if (
+    document.getElementById("UseUserInfoCheck").checked &&
+    !JSON.parse(localStorage.getItem("UserInfo"))
+  ) {
+    /* ダイアログ表示 */
+    Dialog.ShowDialog("ユーザー情報が存在しません。").then(() => {
+      // 1.タブをユーザー情報画面へ遷移
+      ShowDisplayEvent("user");
+    });
+    /* 処理終了 */
+    return;
+  }
   const chosen = CreateDrink.filter((d) => d.checked);
   if (chosen.length === 0) {
     Dialog.ShowDialog("チェックされた飲み物がありません。");
@@ -607,12 +627,8 @@ function JudgeEvent() {
     }
   }
 
-  const user = UseUserInfoCheck.checked
-    ? JSON.parse(localStorage.getItem("UserInfo") || "null")
-    : null;
-
-  const weight = user ? Number(user.weight) : 60;
-  const gender = user ? user.gender : "male";
+  const weight = userStrageInfo ? Number(userStrageInfo.weight) : 60;
+  const gender = userStrageInfo ? userStrageInfo.gender : "male";
   const r = gender === "male" ? 0.68 : 0.55;
 
   const alcoholDensity = 0.789;
@@ -645,8 +661,6 @@ function JudgeEvent() {
   };
   pushHistory(rec);
   RenderHistory();
-
-  // 表示
   displayResult(rec);
 }
 
