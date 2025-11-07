@@ -1,0 +1,227 @@
+:root {
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa6b2;
+  --accent: #60a5fa;
+  --glass: rgba(255, 255, 255, 0.03);
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  background: linear-gradient(180deg, #071028 0%, #081226 60%);
+  color: #e6eef6;
+}
+
+/* ボタンコンテナ */
+.ButtonContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.7);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+h1 {
+  font-size: 18px;
+  margin: 0;
+}
+nav button {
+  margin-left: 8px;
+}
+.Button {
+  background: var(--accent);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #07203a;
+  font-weight: 600;
+  cursor: pointer;
+}
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* screens */
+.screen {
+  display: none;
+}
+.screen.active {
+  display: block;
+}
+
+/* layout */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 項目ごとのコンテナ */
+.CardContainer {
+  background: var(--card);
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: transparent;
+  color: inherit;
+}
+.small {
+  font-size: 13px;
+}
+
+/* drink grid */
+.drink-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 700px) {
+  .drink-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .drink-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.DrinkInfo {
+  background: var(--glass);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.DrinkInfo h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.row.space {
+  justify-content: space-between;
+}
+.muted-small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.error {
+  color: #ff9b9b;
+}
+
+.history-list {
+  max-height: 300px;
+  overflow: auto;
+}
+.history-item {
+  padding: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 6px;
+}
+
+.result-big {
+  font-size: 28px;
+  font-weight: 700;
+}
+.result-meta {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+footer {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+/* --- ダイアログ全体 --- */
+.dialogBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* widthとheightは、原因がわかるまでは無理やりの指定を行う */
+  width: 10000px;
+  height: 10000px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.dialogContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.98);
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  max-width: 90%;
+  width: 360px;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 9999;
+}
+
+/* --- 表示アニメ --- */
+.fadeIn {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+
+.fadeOut {
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) scale(0.97) !important;
+}
+
+/* --- テキスト --- */
+.dialogMessage {
+  color: #e6eef6;
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* --- ボタン --- */
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
