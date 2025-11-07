@@ -5,10 +5,6 @@
  * r: 分配係数（男:0.68、女:0.55）
  *
  * https://www.gov-online.go.jp/article/201804/entry-8385.html
- * 
- * 時間がかかりそうなのでコメントは後回し
- * 表記は基本的にパスカルケースで行いたいがそれもいったん後回し
- * エラーハンドリングは基本的に未入力チェックのみ
  */
 /* ==========================================================
  *  DOM定義
@@ -373,6 +369,7 @@ function RenderDrinkUI(DefaultDrinkList) {
     TypeInput.dataset.field = "type";
     // 9.インデックスを設定
     TypeInput.dataset.i = index;
+    TypeInput.style.width = "100%";
     // 10.labelに追加
     TypeLabel.appendChild(TypeInput);
     // 11.Row2に追加
@@ -712,7 +709,7 @@ function RenderHistory() {
     // 1.DIV要素を作成
     const el = document.createElement("div");
     // 2.クラスを設定
-    el.className = "history-item";
+    el.className = "HistoryCardItem";
 
     /* 上段（ランク・日時・BAC）を作成 */
     // 1.DIV要素を作成

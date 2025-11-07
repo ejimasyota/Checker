@@ -98,6 +98,7 @@ select {
   background: transparent;
   color: inherit;
 }
+
 .small {
   font-size: 13px;
 }
@@ -141,18 +142,18 @@ select {
   color: var(--muted);
   font-size: 12px;
 }
-.error {
-  color: #ff9b9b;
-}
 
-.history-list {
+/* 履歴コンテナ */
+.HistoryCardList {
   max-height: 300px;
+
   overflow: auto;
 }
-.history-item {
+/* 履歴カード */
+.HistoryCardItem {
   padding: 8px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.092);
   margin-bottom: 6px;
 }
 
@@ -170,12 +171,12 @@ footer {
   color: var(--muted);
   font-size: 13px;
 }
-/* --- ダイアログ全体 --- */
+/* ダイアログ全体 */
 .dialogBackdrop {
   position: fixed;
   top: 0;
   left: 0;
-  /* widthとheightは、原因がわかるまでは無理やりの指定を行う */
+  /* widthとheightは、原因がわかるまでは無理やりの指定を行う : 2025/11/07 */
   width: 10000px;
   height: 10000px;
   background: rgba(0, 0, 0, 0.5);
@@ -219,7 +220,7 @@ footer {
   line-height: 1.5;
 }
 
-/* --- ボタン --- */
+/* ダイアログボタンコンテナ */
 .ButtonContainer {
   display: flex;
   justify-content: center;
