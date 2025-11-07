@@ -59,17 +59,11 @@ const WeeklyElement = document.getElementById("WeeklyElement");
  * ========================================================== */
 const DefaultDrinks = [
   {
-    // 1.品名
     type: "ビール(缶)",
-    // 2.アルコール度数
     abv: 5,
-    // 3.本数
     count: 1,
-    // 4.量
     vol: 350,
-    // 5.チェック
     checked: false,
-    // 6.デフォルトの項目であるかを判別するFLG
     default: true,
   },
   {
@@ -89,10 +83,90 @@ const DefaultDrinks = [
     default: true,
   },
   {
-    type: "ハイボール(ジョッキ)",
+    type: "ハイボール(缶)",
     abv: 9,
     count: 1,
-    vol: 350,
+    vol: 500,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "日本酒(一合)",
+    abv: 15,
+    count: 1,
+    vol: 180,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "チューハイ(缶)",
+    abv: 7,
+    count: 1,
+    vol: 500,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "カクテル(グラス)",
+    abv: 10,
+    count: 1,
+    vol: 120,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "ウイスキー(シングル)",
+    abv: 40,
+    count: 1,
+    vol: 30,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "梅酒(ロック)",
+    abv: 14,
+    count: 1,
+    vol: 90,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "焼酎(ロック)",
+    abv: 25,
+    count: 1,
+    vol: 70,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "日本酒(冷酒・グラス)",
+    abv: 15,
+    count: 1,
+    vol: 120,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "ワイン(ボトル)",
+    abv: 12,
+    count: 1,
+    vol: 750,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "テキーラ(ショット)",
+    abv: 40,
+    count: 1,
+    vol: 30,
+    checked: false,
+    default: true,
+  },
+  {
+    type: "ジン(トニック)",
+    abv: 12,
+    count: 1,
+    vol: 200,
     checked: false,
     default: true,
   },
