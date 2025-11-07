@@ -650,7 +650,6 @@ function JudgeEvent() {
 
   const rankInfo = RankBac(bac);
 
-  // 保存
   const rec = {
     ts: new Date().toISOString(),
     bac: round(bac, 4),
@@ -813,11 +812,11 @@ function RenderHistory() {
  */
 function ExportButton() {
   const js = localStorage.getItem("HistoryInfoStrage") || "[]";
-  const blob = new Blob([js], { type: "application/json" });
+  const blob = new Blob([js], { type: "application/csv" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "HistoryInfoStrage.json";
+  a.download = "HistoryInfoStrage.csv";
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -831,9 +830,6 @@ function ClearHistoryButton() {
     if (result) {
       localStorage.removeItem("HistoryInfoStrage");
       RenderHistory();
-    } else {
-      /* [いいえ]が押下された場合は処理終了 */
-      return;
     }
   });
 }
