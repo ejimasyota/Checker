@@ -172,6 +172,14 @@ function ShowDisplayEvent(screen) {
  * @returns
  */
 function SaveUserInfoButton() {
+  /* ------------------------------
+   *  1. バリデーションチェック
+   * ------------------------------*/
+  if (!WeightElement.value || !AgeElement.value) {
+    Dialog.ShowDialog("年齢と体重は必須です。");
+    return;
+  }
+
   const obj = {
     gender: GenderElement.value,
     age: parseInt(AgeElement.value || 0, 10),
@@ -179,10 +187,7 @@ function SaveUserInfoButton() {
     weight: parseFloat(WeightElement.value || 0),
     weekly: parseFloat(WeeklyElement.value || 0),
   };
-  if (!obj.weight || obj.age <= 0) {
-    Dialog.ShowDialog("年齢と体重は必須です。");
-    return;
-  }
+
   localStorage.setItem("UserInfo", JSON.stringify(obj));
   RenderUserSummary();
   Dialog.ShowDialog("保存が完了しました。").then(() => {
@@ -831,13 +836,16 @@ function CheckNumber(ElementId, Index = null) {
   }
 
   /* ------------------------------
-   *  7. IDに紐づく要素がアルコール入力欄なら100上限を適用
+   *  7. 要素ごとの値設定処理
    * ------------------------------*/
   if (ElementId === `AbvLabelElement_${Index}`) {
-    // 1.該当する場合は制限を実施
+    // 1.IDに紐づく要素がアルコール入力欄で、値が100以上であれば制限を実施
     Element.value = ParseNumber >= 100 ? 100 : ParseNumber;
+  } else if (ElementId === "WeeklyElement") {
+    // 2.IDに紐づく要素が週の飲酒日数入力欄で、値が7より上であれば制限を実施
+    Element.value = ParseNumber > 7 ? 7 : ParseNumber;
   } else {
-    // 2.該当しない場合はそのまま変換後数値をセット
+    // 3.該当しない場合はそのまま変換後数値をセット
     Element.value = ParseNumber;
   }
 }
