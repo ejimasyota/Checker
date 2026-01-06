@@ -102,6 +102,24 @@ option {
   color: black;
 }
 
+/* ユーザー情報フォームのレスポンシブ対応 */
+.user-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 480px;
+}
+@media (max-width: 600px) {
+  .user-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.user-form-grid .user-input {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: right;
+}
+
 .small {
   font-size: 13px;
 }

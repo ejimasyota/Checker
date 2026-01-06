@@ -76,14 +76,7 @@
       <div id="screen-user" class="screen">
         <div class="CardContainer">
           <h2 class="small">ユーザー情報を入力・保存</h2>
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 10px;
-              max-width: 300px;
-            "
-          >
+          <div class="user-form-grid">
             <div>
               <label>年齢</label>
               <input
@@ -91,7 +84,7 @@
                 id="AgeElement"
                 maxlength="3"
                 onblur="CheckNumber('AgeElement')"
-                style="width: 150px; text-align: right"
+                class="user-input"
               />
               <label style="margin-top: 6px">体重（kg）</label>
               <input
@@ -99,7 +92,7 @@
                 id="WeightElement"
                 maxlength="3"
                 onblur="CheckNumber('WeightElement')"
-                style="width: 150px; text-align: right"
+                class="user-input"
               />
               <label style="margin-top: 6px">週の平均飲酒日数（日）</label>
               <input
@@ -107,18 +100,18 @@
                 id="WeeklyElement"
                 maxlength="1"
                 onblur="CheckNumber('WeeklyElement')"
-                style="width: 150px; text-align: right"
+                class="user-input"
               />
             </div>
             <div>
               <label>性別</label>
-              <select id="GenderElement" style="width: 150px">
+              <select id="GenderElement" class="user-input">
                 <option value="male">男性</option>
                 <option value="female">女性</option>
               </select>
 
               <label style="margin-top: 6px">血液型</label>
-              <select id="BloodType" style="width: 150px">
+              <select id="BloodType" class="user-input">
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="O">O</option>
