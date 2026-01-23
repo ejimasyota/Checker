@@ -1113,65 +1113,71 @@ function ClearHistoryButton() {
 function RankBac(bac) {
   if (bac <= 0.01)
     return {
-      rank: "F",
+      rank: "G",
       message: "ほぼシラフです。飲みましょう。",
       nextThreshold: 0.01,
     };
   if (bac <= 0.02)
     return {
-      rank: "E",
+      rank: "F",
       message: "少し酔った程度です。飲みましょう。",
       nextThreshold: 0.02,
     };
   if (bac <= 0.04)
     return {
-      rank: "D",
+      rank: "E",
       message:
         "軽度の酩酊状態です。気分が高揚し、判断が少し鈍ります。まだ飲みましょう。",
       nextThreshold: 0.04,
     };
   if (bac <= 0.06)
     return {
-      rank: "C",
+      rank: "D",
       message:
         "中等度の酩酊状態です。声が大きくなり、抑制が低下します。まだいけます。",
       nextThreshold: 0.06,
     };
   if (bac <= 0.08)
     return {
-      rank: "B",
+      rank: "C",
       message:
         "完全に酔っています。バランス感覚の低下や誤判断が見られます。正直まだいけます。",
       nextThreshold: 0.08,
     };
   if (bac <= 0.1)
     return {
-      rank: "A",
+      rank: "B",
       message:
-        "高度の酩酊状態です。言動が乱れ、千鳥足になります。二次会には顔だけ出しましょう。",
+        "高度の酩酊状態です。酔った勢いでSNSに気持ち悪い投稿をする恐れがあります。二次会には顔だけ出しましょう。",
       nextThreshold: 0.1,
     };
   if (bac <= 0.13)
     return {
-      rank: "S",
-      message: "危険な状態です。記憶の欠落が始まる可能性があります。",
+      rank: "A",
+      message: "危険な状態です。無理せず飲みましょう。",
       nextThreshold: 0.13,
     };
   if (bac <= 0.16)
     return {
-      rank: "SS",
-      message: "昏睡寸前の状態です。すぐ帰宅してください。",
+      rank: "S",
+      message: "昏睡寸前の状態です。三次会は厳しいです。",
       nextThreshold: 0.16,
     };
   if (bac <= 0.2)
     return {
-      rank: "SSS",
-      message: "意識障害レベル。救急受診を検討すべきです。",
+      rank: "SS",
+      message: "非常に危険な状態です。1人でタクシーを捕まえることすら困難です。",
       nextThreshold: 0.2,
+    };
+  if (bac <= 0.25)
+    return {
+      rank: "SSS",
+      message: "その場にいること自体が粗相のレベルの酩酊状態です。帰れよ。",
+      nextThreshold: 0.25,
     };
   return {
     rank: "💀",
-    message: "死にます。ブラウザを閉じて遺族となる方々に連絡してください。",
+    message: "死。ブラウザを閉じて遺族となる方々に連絡してください。",
     nextThreshold: null,
   };
 }
