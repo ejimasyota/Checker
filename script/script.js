@@ -1151,7 +1151,7 @@ function RankBac(bac) {
     return {
       rank: "B",
       message:
-        "高度の酩酊状態です。酔った勢いでSNSに気持ち悪い投稿をする恐れがあります。二次会には顔だけ出しましょう。",
+        "高度の酩酊状態です。勢いでSNSに気持ち悪い投稿をする恐れがあります。二次会には顔だけ出しましょう。",
       nextThreshold: 0.1,
     };
   if (bac <= 0.13)
@@ -1163,19 +1163,19 @@ function RankBac(bac) {
   if (bac <= 0.16)
     return {
       rank: "S",
-      message: "昏睡寸前の状態です。三次会は厳しいです。",
+      message: "昏睡寸前の状態です。三次会は厳しいかもしれません。",
       nextThreshold: 0.16,
     };
   if (bac <= 0.2)
     return {
       rank: "SS",
-      message: "非常に危険な状態です。1人でタクシーを捕まえることすら困難です。",
+      message: "非常に危険な状態です。車の運転はしない方がいいかもしれません。",
       nextThreshold: 0.2,
     };
   if (bac <= 0.25)
     return {
       rank: "SSS",
-      message: "その場にいること自体が粗相のレベルの酩酊状態です。帰れよ。",
+      message: "いい加減にしろよ。いい歳して何やってんだお前。",
       nextThreshold: 0.25,
     };
   return {
