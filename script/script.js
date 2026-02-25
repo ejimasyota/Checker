@@ -120,7 +120,7 @@ document
   .getElementById("ClearUserInfoButton")
   .addEventListener("click", ClearUserInfoButton);
 // 3.[エクスポート]ボタン押下時イベント
-document.getElementById("ExportButton").addEventListener("click", ExportButton);
+// document.getElementById("ExportButton").addEventListener("click", ExportButton);
 // 4.[履歴クリア]ボタン押下時イベント
 document
   .getElementById("ClearHistoryButton")
@@ -310,11 +310,14 @@ function RenderUserSummary() {
     // 1.JSONをパース
     const ParseUserInfo = JSON.parse(UserInfoJson);
     // 2.ユーザー情報表示コンテナに各情報を設定
-    UserInfo.innerHTML = `${
+    UserInfo.innerHTML = `
+    ● 性別<br>&ensp; &ensp; - ${
       ParseUserInfo.gender === "male" ? "男性" : "女性"
-    } / ${ParseUserInfo.age}歳 / ${ParseUserInfo.weight}kg / 週${
-      ParseUserInfo.weekly
-    }日の飲酒 / ${ParseUserInfo.btype || "未設定"}型`;
+    }<br>
+    ● 年齢<br>&ensp; &ensp; - ${ParseUserInfo.age}歳<br>
+    ● 体重<br>&ensp; &ensp; - ${ParseUserInfo.weight}kg<br>
+    ● 週の飲酒日数<br>&ensp; &ensp; - ${ParseUserInfo.weekly}日<br>
+    ● 血液型<br>&ensp; &ensp; - ${ParseUserInfo.btype || "未設定"}型`;
   } catch (e) {
     /* 例外時 */
     // 1.未登録のテキスト設定
@@ -1022,19 +1025,19 @@ function RenderHistory() {
     // 4.detailsに追加
     Details.appendChild(Summary);
 
-    /* 飲んだもの情報を作成 */
+     /* 飲んだもの情報を作成 */
     // 1.DIV要素を作成
     const DrinkInfo = document.createElement("div");
     // 2.クラスを設定
     DrinkInfo.className = "muted-small";
     // 3.内容を設定
-    DrinkInfo.textContent =
-      "飲んだもの: " +
+    DrinkInfo.innerHTML =
       r.CreateDrink.map(
-        (d) => `${d.type} x${d.count}(${d.abv}% / ${d.vol}ml)`
-      ).join(", ");
+        (d) => `<br>● ドリンク詳細 <br> &ensp;&ensp; - ドリンク名 : ${d.type} <br>  &ensp;&ensp; - 本数 : ${d.count}本 <br> &ensp;&ensp; - 度数 : ${d.abv}% <br> &ensp;&ensp; - 容量 : ${d.vol}ml <br>`
+      ).join("");
     // 4.detailsに追加
     Details.appendChild(DrinkInfo);
+
 
     /* 要素をまとめて履歴アイテムに追加 */
     // 1.TopRowを追加
@@ -1052,29 +1055,29 @@ function RenderHistory() {
 /**
  * エクスポートボタン押下時処理
  */
-function ExportButton() {
-  /* ------------------------------
-   *  1. バリデーションチェック
-   * ------------------------------*/
-  /* 1.履歴情報が存在しない状態で処理を実行した場合 */
-  if (!JSON.parse(localStorage.getItem("HistoryInfoStrage"))) {
-    // 1.ダイアログ表示
-    Dialog.ShowDialog("履歴が存在しません。");
-    // 2.処理終了
-    return;
-  }
-  const js = localStorage.getItem("HistoryInfoStrage") || "[]";
-  const blob = new Blob([js], { type: "application/csv" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "HistoryInfoStrage.csv";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  Dialog.ShowDialog("保存が完了しました。");
-}
+// function ExportButton() {
+//   /* ------------------------------
+//    *  1. バリデーションチェック
+//    * ------------------------------*/
+//   /* 1.履歴情報が存在しない状態で処理を実行した場合 */
+//   if (!JSON.parse(localStorage.getItem("HistoryInfoStrage"))) {
+//     // 1.ダイアログ表示
+//     Dialog.ShowDialog("履歴が存在しません。");
+//     // 2.処理終了
+//     return;
+//   }
+//   const js = localStorage.getItem("HistoryInfoStrage") || "[]";
+//   const blob = new Blob([js], { type: "application/csv" });
+//   const url = URL.createObjectURL(blob);
+//   const a = document.createElement("a");
+//   a.href = url;
+//   a.download = "HistoryInfoStrage.csv";
+//   document.body.appendChild(a);
+//   a.click();
+//   a.remove();
+//   URL.revokeObjectURL(url);
+//   Dialog.ShowDialog("保存が完了しました。");
+// }
 
 /**
  * 履歴クリアボタン押下時イベント
