@@ -482,7 +482,7 @@ function RenderDrinkUI(DefaultDrinkList) {
     // 10.ID設定
     AbvInput.id = `AbvLabelElement_${index}`;
     // 11.値設定
-    AbvInput.value = drink.abv || 0;
+    AbvInput.value = drink.abv || 5;
     // 12.識別ID設定
     AbvInput.dataset.field = "abv";
     // 13.インデックス設定
@@ -614,13 +614,15 @@ function RenderDrinkUI(DefaultDrinkList) {
         `DrinkTypeElement_${index}`
       );
 
-      // 3.表示要素の値が[自由入力]であった場合
-      if (DrinkTypeElement.textContent === "自由入力") {
-        // 3.入力欄の値を設定
-        DrinkTypeElement.textContent = this.value;
-        // 4.入力欄を非活性へ
-        TypeInput.disabled = true;
-      }
+      // // 3.表示要素の値が[自由入力]であった場合
+      // if (DrinkTypeElement.textContent === "自由入力") {
+      //   // 3.入力欄の値を設定
+      //   DrinkTypeElement.textContent = this.value;
+      //   // 4.入力欄を非活性へ
+      //   TypeInput.disabled = true;
+      // }
+      // 3. 入力欄の値を設定
+      DrinkTypeElement.textContent = this.value;
     });
 
     AbvInput.addEventListener("blur", function () {
@@ -705,7 +707,7 @@ function onDrinkInputChange(e) {
 function AddDrinkButton() {
   CreateDrink.push({
     type: "",
-    abv: 0,
+    abv: 5,
     count: 1,
     vol: 100,
     checked: true,
