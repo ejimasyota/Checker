@@ -1182,7 +1182,7 @@ function RankBac(bac) {
     };
   return {
     rank: "💀",
-    message: "死。ブラウザを閉じて遺族となる方々に連絡してください。",
+    message: "ブラウザを閉じて遺族となる方々に連絡してください。",
     nextThreshold: null,
   };
 }
